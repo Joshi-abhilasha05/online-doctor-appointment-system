@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="stylesdocdash.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Doctor Dashboard</h2>
+        <div class="dashboard-section">
+            <h3>My Appointments</h3>
+            <table id="appointmentsTable">
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="logout-section">
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to load and display appointments for the current doctor
+        function loadDoctorAppointments() {
+            // Get appointments from localStorage
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const currentDoctorName = localStorage.getItem('doctorName');
+
+            // Filter appointments for the current doctor
+            const filteredAppointments = appointments.filter(appointment =>
+                appointment.doctorName === currentDoctorName
+            );
+
+            const tableBody = document.getElementById("appointmentsTableBody");
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (filteredAppointments.length === 0) {
+                // Show message if no appointments found
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 5;
+                cell.textContent = "No appointments found";
+                cell.style.textAlign = "center";
+                cell.style.padding = "20px";
+            } else {
+                // Display each appointment
+                filteredAppointments.forEach(appointment => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = appointment.id || 'N/A';
+                    row.insertCell(1).textContent = appointment.patientName || 'N/A';
+                    row.insertCell(2).textContent = appointment.date || 'N/A';
+                    row.insertCell(3).textContent = appointment.time || 'N/A';
+                    row.insertCell(4).textContent = appointment.status || 'Confirmed';
+                });
+            }
+        }
+
+        // Load appointments when page loads
+        document.addEventListener('DOMContentLoaded', loadDoctorAppointments);
+    </script>
+</body>
+
+</html>

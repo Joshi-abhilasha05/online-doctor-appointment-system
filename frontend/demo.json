@@ -1,0 +1,106 @@
+{
+  "user": {},
+  "patient": [
+    {
+      "id": "0b2f",
+      "username": "LEKHANA",
+      "email": "lekhanaaluvala@gmail.com",
+      "password": "123",
+      "phone": "9391630604",
+      "address": "karimnagar"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "47dc",
+      "username": "ABHILASHA",
+      "email": "joshiabhi@gmail.com",
+      "phone": "9550210321",
+      "specialty": "dermatology",
+      "password": "123"
+    },
+    {
+      "id": "0d46",
+      "username": "VAISHNAVI",
+      "email": "ashwithareddy694@gmail.com",
+      "phone": "09440625857",
+      "specialty": "dermatology",
+      "password": "123"
+    }
+  ],
+  "patientappointments": [
+    {
+      "id": "99d3",
+      "patientId": 1,
+      "doctorId": "47dc",
+      "date": "2024-05-31",
+      "time": "17:30",
+      "status": "confirmed",
+      "patientName": "LEKHANA",
+      "DocterName": "ABHILASHA"
+    },
+    {
+      "id": "150f",
+      "patientId": 1,
+      "doctorId": "47dc",
+      "date": "2024-05-17",
+      "time": "02:16",
+      "status": "confirmed",
+      "patientName": "LEKHANA",
+      "DocterName": ""
+    },
+    {
+      "id": "9e1c",
+      "patientId": 1,
+      "doctorId": "0d46",
+      "date": "2024-05-14",
+      "time": "",
+      "status": "confirmed",
+      "patientName": "LEKHANA",
+      "DocterName": ""
+    },
+    {
+      "id": "4524",
+      "patientId": 1,
+      "doctorId": "47dc",
+      "date": "2024-05-06",
+      "time": "22:21",
+      "status": "confirmed",
+      "patientName": "LEKHANA",
+      "DocterName": "ABHILASHA"
+    },
+    {
+      "id": "cfdc",
+      "patientId": 1,
+      "doctorId": "47dc",
+      "date": "2024-05-21",
+      "time": "04:33",
+      "status": "confirmed",
+      "patientName": "LEKHANA",
+      "DocterName": "ABHILASHA"
+    }
+  ],
+  "admin": [
+    {
+      "id": "1",
+      "username": "admin1",
+      "password": "adminpassword",
+      "email": "admin1@example.com",
+      "phone_number": "1234567890"
+    },
+    {
+      "id": "f7af",
+      "username": "ashwithareddy",
+      "email": "ashwithareddy694@gmail.com",
+      "phone": "9618286736",
+      "password": "123"
+    },
+    {
+      "id": "4e43",
+      "username": "ashu",
+      "email": "ashu@gmail.com",
+      "phone": "1235678901",
+      "password": "123"
+    }
+  ]
+}

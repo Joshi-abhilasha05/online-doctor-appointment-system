@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Patients</title>
+    <link rel="stylesheet" type="text/css" href="stylesviewpatient.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .patients-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .patients-table th {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .patients-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .patients-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .patients-table tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .no-patients {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-link a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>List of Patients</h1>
+        <table class="patients-table" id="patientsTable">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody id="patientsTableBody">
+                <!-- Patients will be loaded here -->
+            </tbody>
+        </table>
+        <div class="back-link">
+            <a href="admin-dashboard.html">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to load and display patients
+        function loadPatients() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const tableBody = document.getElementById('patientsTableBody');
+
+            if (patients.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="no-patients">No patients registered yet</td>
+                    </tr>
+                `;
+            } else {
+                tableBody.innerHTML = patients.map(patient => `
+                    <tr>
+                        <td>${patient.username}</td>
+                        <td>${patient.email}</td>
+                        <td>${patient.phone}</td>
+                        <td>${patient.address}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Load patients when page loads
+        document.addEventListener('DOMContentLoaded', loadPatients);
+    </script>
+</body>
+
+</html>

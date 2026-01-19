@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="stylesbookapp.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Book Appointment</h2>
+        <div class="form-section">
+            <form id="appointmentForm">
+                <label for="disease">Select Disease:</label>
+                <select id="disease" name="disease" onchange="populateDoctors()">
+                    <option value="general_checkup">General Checkup</option>
+                    <option value="heart">Heart</option>
+                    <option value="dermatology">Dermatology</option>
+                    <option value="neurology">Neurology</option>
+                </select>
+                <br><br>
+                <label for="doctor">Select Doctor:</label>
+                <select id="doctor" name="doctor" onchange="updateDoctorName()">
+                </select>
+                <br><br>
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date">
+                <br><br>
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" name="time">
+                <br><br>
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+        <div class="dashboard-section">
+            <a href="patientview_appointment.html">View Booked Appointments</a>
+        </div>
+        <div class="dashboard-section">
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        let doctorName = '';
+
+        // Function to populate the doctors dropdown based on selected disease
+        function populateDoctors() {
+            const selectDoctor = document.getElementById("doctor");
+            selectDoctor.innerHTML = ""; // Clear existing options
+
+            const selectedDisease = document.getElementById("disease").value;
+
+            // Get doctors from localStorage
+            let doctors = JSON.parse(localStorage.getItem('doctors') || '[]');
+
+            // Filter doctors based on selected disease
+            const filteredDoctors = doctors.filter(doctor =>
+                doctor.specialty.toLowerCase() === selectedDisease.toLowerCase()
+            );
+
+            // Create and append options for filtered doctors
+            filteredDoctors.forEach(doctor => {
+                const option = document.createElement("option");
+                option.value = doctor.id;
+                option.text = doctor.username;
+                selectDoctor.appendChild(option);
+            });
+
+            if (filteredDoctors.length > 0) {
+                doctorName = filteredDoctors[0].username;
+            } else {
+                // If no doctors found for the specialty, show a message
+                const option = document.createElement("option");
+                option.value = "";
+                option.text = "No doctors available for this specialty";
+                selectDoctor.appendChild(option);
+            }
+        }
+
+        // Populate doctors on page load
+        populateDoctors();
+
+        function updateDoctorName() {
+            const selectDoctor = document.getElementById("doctor");
+            const selectedOption = selectDoctor.options[selectDoctor.selectedIndex];
+            doctorName = selectedOption.text;
+            localStorage.setItem("doctername", doctorName);
+        }
+
+        function bookAppointment(event) {
+            event.preventDefault();
+
+            const patientId = Date.now().toString(); // Generate unique ID
+            const doctorId = document.getElementById("doctor").value;
+            const date = document.getElementById("date").value;
+            const time = document.getElementById("time").value;
+            const patientName = localStorage.getItem("patientName");
+
+            if (!date || !time || !doctorId) {
+                alert("Please fill all the fields");
+                return;
+            }
+
+            const newAppointment = {
+                "id": patientId,
+                "patientId": patientId,
+                "doctorId": doctorId,
+                "date": date,
+                "time": time,
+                "status": "confirmed",
+                "patientName": patientName,
+                "doctorName": doctorName
+            };
+
+            // Get existing appointments from localStorage
+            let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+            // Add new appointment
+            appointments.push(newAppointment);
+
+            // Save back to localStorage
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            alert("Appointment booked successfully!");
+            document.getElementById("appointmentForm").reset();
+        }
+
+        document.getElementById("appointmentForm").addEventListener("submit", bookAppointment);
+    </script>
+</body>
+
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Book Appointment</h2>
+        <div class="form-section">
+            <form id="appointmentForm">
+                <label for="disease">Select Disease:</label>
+                <select id="disease" name="disease">
+                    <option value="general_checkup">General Checkup</option>
+                    <option value="cardiology">Cardiology</option>
+                    <option value="dermatology">Dermatology</option>
+                    <option value="neurology">Neurology</option>
+                </select>
+                <br><br>
+                <label for="doctor">Select Doctor:</label>
+                <select id="doctor" name="doctor">
+                   
+                </select>
+                <br><br>
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date">
+                <br><br>
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" name="time">
+                <br><br>
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+        <div class="dashboard-section">
+            <a href="patientview_appointments.html">View Booked Appointments</a>
+        </div>
+        <div class="dashboard-section">
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+
+</html> 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin - View All Appointments</title>
+    <link rel="stylesheet" type="text/css" href="stylesadminviewapp.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>View All Appointments of Every Patient</h2>
+        <div class="dashboard-section">
+            <table id="appointmentsTable">
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Doctor Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="logout-section">
+            <a href="admin-dashboard.html">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to load and display all appointments
+        function loadAllAppointments() {
+            // Get appointments from localStorage
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+            const tableBody = document.getElementById("appointmentsTableBody");
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (appointments.length === 0) {
+                // Show message if no appointments found
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 6;
+                cell.textContent = "No appointments found";
+                cell.style.textAlign = "center";
+                cell.style.padding = "20px";
+            } else {
+                // Display each appointment
+                appointments.forEach(appointment => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = appointment.id || 'N/A';
+                    row.insertCell(1).textContent = appointment.patientName || 'N/A';
+                    row.insertCell(2).textContent = appointment.doctorName || 'N/A';
+                    row.insertCell(3).textContent = appointment.date || 'N/A';
+                    row.insertCell(4).textContent = appointment.time || 'N/A';
+                    row.insertCell(5).textContent = appointment.status || 'Confirmed';
+                });
+            }
+        }
+
+        // Load appointments when page loads
+        document.addEventListener('DOMContentLoaded', loadAllAppointments);
+    </script>
+</body>
+
+</html>

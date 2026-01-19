@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" type="text/css" href="styleslogin.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Admin Login</h2>
+        <form id="adminLoginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <a href="admin-signup.html">Signup</a>
+    </div>
+
+    <script>
+        // Initialize admins array in localStorage if it doesn't exist
+        if (!localStorage.getItem('admins')) {
+            localStorage.setItem('admins', JSON.stringify([]));
+        }
+
+        // Function to handle form submission
+        function handleLogin(event) {
+            event.preventDefault();
+
+            let username = document.querySelector("#username").value;
+            let password = document.querySelector("#password").value;
+
+            if (username === '' || password === '') {
+                alert("Please fill all the fields");
+                return;
+            }
+
+            // Get admins from localStorage
+            let admins = JSON.parse(localStorage.getItem('admins') || '[]');
+
+            // Find admin with matching credentials
+            const admin = admins.find(admin =>
+                admin.username === username && admin.password === password
+            );
+
+            if (admin) {
+                localStorage.setItem('adminName', admin.username);
+                alert("Login successful!");
+                window.location.href = "admin-dashboard.html";
+            } else {
+                alert("Invalid username or password");
+            }
+        }
+
+        // Attach the handleLogin function to the form's submit event
+        document.getElementById("adminLoginForm").addEventListener("submit", handleLogin);
+    </script>
+</body>
+
+</html>

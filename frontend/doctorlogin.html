@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Login</title>
+    <link rel="stylesheet" href="styleslogin.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Doctor Login</h2>
+        <form id="doctorloginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br><br>
+            <button type="submit">Login</button>
+        </form>
+        <div class="dashboard-section">
+            <a href="doctorsignup.html">Sign Up</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById("doctorloginForm").addEventListener("submit", loginDoctor);
+
+        function loginDoctor(event) {
+            event.preventDefault();
+
+            let username = document.querySelector("#username").value;
+            let password = document.querySelector("#password").value;
+
+            // Get doctors from localStorage
+            let doctors = JSON.parse(localStorage.getItem('doctors') || '[]');
+
+            // Find doctor with matching credentials
+            const doctor = doctors.find(doc => doc.username === username && doc.password === password);
+
+            if (doctor) {
+                localStorage.setItem('doctorName', doctor.username);
+                alert("Login successful");
+                window.location.href = "doctordashboard.html";
+            } else {
+                alert("Invalid username or password");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

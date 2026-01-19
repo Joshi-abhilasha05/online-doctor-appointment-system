@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login</title>
+    <link rel="stylesheet" href="styleslogin.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Patient Login</h2>
+        <form id="patientloginform">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <a href="patientsignup.html">Don't have an account? Sign up</a>
+    </div>
+
+    <script>
+        function loginPatient(event) {
+            event.preventDefault();
+
+            let username = document.querySelector("#username").value;
+            let password = document.querySelector("#password").value;
+
+            // Get patients from localStorage
+            let patients = JSON.parse(localStorage.getItem('patients') || '[]');
+
+            // Find patient with matching credentials
+            const patient = patients.find(patient =>
+                patient.username === username && patient.password === password
+            );
+
+            if (patient) {
+                localStorage.setItem('patientName', patient.username);
+                alert("Login successful");
+                window.location.href = "patientdashboard.html";
+            } else {
+                alert("Invalid username or password");
+            }
+        }
+
+        document.getElementById("patientloginform").addEventListener("submit", loginPatient);
+    </script>
+</body>
+
+</html>

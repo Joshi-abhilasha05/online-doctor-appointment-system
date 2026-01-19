@@ -1,0 +1,88 @@
+/* Resetting default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('backgroundbookapp.jpg');
+    /* Replace with your background image file */
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    background: rgba(15, 6, 55, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #f7f8f9;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+select,
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f5f8fc;
+}
+
+.dashboard-section {
+    margin-top: 20px;
+}
+
+.dashboard-section a {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+    color: hsl(220, 60%, 99%);
+    text-decoration: none;
+}
+
+.dashboard-section a:hover {
+    text-decoration: underline;
+}
